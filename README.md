@@ -144,6 +144,8 @@ git clone  https://github.com/tkagn/rhodf.git
 
 ## Tips
 
+**Rook Ceph Toolbox**  
+
 Use the Rook-Ceph toolbox to go behind the curtains and check on Ceph:
 
 ```console
@@ -152,7 +154,7 @@ oc patch OCSInitialization ocsinit -n openshift-storage --type json --patch  '[{
 oc rsh -n openshift-storage $(oc get pod -n openshift-storage -l app=rook-ceph-tools -o jsonpath='{.items[0].metadata.name}')
 ```
 
-Kubernetes universal toleration:
+**Kubernetes universal toleration**
 
 An empty key with `operator: Exists` matches all keys, values and effects which means this will tolerate everything.
 
@@ -162,6 +164,8 @@ tolerations:
 ```
 
 Use when need to schedule RHODF components on tainted dedicated infra nodes.
+
+**Time sync**  
 
 Setup Chrony to ensure timesync source for nodes:
 
@@ -209,8 +213,7 @@ oc apply -f ./master-chrony-configuration.yml
 oc apply -f ./worker-chrony-configuration.yml
 ```
 
-
-Multi-Attach errors:
+**Multi-Attach errors**:
 
 VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node. May have to delete:
 
