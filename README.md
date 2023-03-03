@@ -49,6 +49,16 @@ Training:
 
 - Red Hat OpenShift 4.x Cluster
 
+Infrastructure requirements:
+
+| Mode | Minimum | Per Additional|
+|---|---|---|
+| Internal | <li>30 vCPU</li><br> <li>72 GiB memory</li><br> <li>3 Disks</li> | <li>6 vCPU</li><br> <li> 16GiB memory</li><br> <li>3 Disks</li> |
+| External | <li>4 vCPU</li><br> <li>16GiB memory</li> | N/A |
+
+> Note: See [Infrastructure requirements for RHODF](https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.12/html/planning_your_deployment/infrastructure-requirements_rhodf#platform-requirements_rhodf)
+            
+
 The RHODF Operator will install its components only on nodes labeled with `cluster.ocs.openshift.io/openshift-storage=''`.
 
 Nodes can be labeled with:
