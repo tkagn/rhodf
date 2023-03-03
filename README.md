@@ -141,6 +141,12 @@ oc apply -f storagecluster-ocs-storagecluster
 
 Edit this file with the respective size of each disk and the storage class that should be used to provision the OSD disks.
 
+To get list of storage classes:
+
+```console
+oc get storageclasses.storage.k8s.io
+```
+
 ## Usage
 
 ```console
@@ -224,5 +230,5 @@ oc apply -f ./worker-chrony-configuration.yml
 VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node. May have to delete:
 
 ```console
-oc get volumeattachement
+oc get volumeattachments.storage.k8s.io
 ```
