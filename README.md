@@ -28,7 +28,7 @@ Some Links:
 - Red Hat Openshift Data Foundation Customer Portal Articles - https://access.redhat.com/taxonomy/products/red-hat-openshift-data-foundation
 - Red Hat OpenShift Data Foundation RSS feed - https://access.redhat.com/term/Red%20Hat%20OpenShift%20Data%20Foundation/feed
 - What is supported in Red Hat OpenShift Data Foundation (previously known as OpenShift Container Storage) 4.X? - https://access.redhat.com/articles/5001441
-- Red hat Bugzilla - https://bugzilla.redhat.com/
+- Red Hat Bugzilla - https://bugzilla.redhat.com/
 
 Tools:
 
@@ -74,6 +74,8 @@ Use to by deploy manifests together
 ```console
 oc apply -k .
 ```
+
+:warning: Not needed if you are applying the manifest one at a time. This file is helpful when managing a cluster using GitOps.
 
 ## namespace-openshift-storage.yaml
 
