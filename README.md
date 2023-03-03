@@ -28,7 +28,11 @@ Some Links:
 - Red Hat Openshift Data Foundation Customer Portal Articles - https://access.redhat.com/taxonomy/products/red-hat-openshift-data-foundation
 - Red Hat OpenShift Data Foundation RSS feed - https://access.redhat.com/term/Red%20Hat%20OpenShift%20Data%20Foundation/feed
 - What is supported in Red Hat OpenShift Data Foundation (previously known as OpenShift Container Storage) 4.X? - https://access.redhat.com/articles/5001441
+- Creating infrastructure machine sets https://docs.openshift.com/container-platform/4.12/machine_management/creating-infrastructure-machinesets.html#creating-an-infra-node_creating-infrastructure-machinesets
+- How to add toleration for the "non-ocs" taints to the OpenShift Data Foundation pods? - https://access.redhat.com/articles/6408481
 - Red Hat Bugzilla - https://bugzilla.redhat.com/
+
+- https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
 
 Tools:
 
@@ -42,6 +46,8 @@ Training:
 - EX370 Red Hat Certified Specialist in OpenShift Data Foundation exam - https://www.redhat.com/en/services/training/ex370-red-hat-certified-specialist-in-openshift-data-foundation-exam
 
 ## Prerequisites
+
+- Red Hat OpenShift 4.x Cluster
 
 The RHODF Operator will install its components only on nodes labeled with `cluster.ocs.openshift.io/openshift-storage=''`.
 
@@ -64,7 +70,7 @@ oc adm taint nodes <NodeNames> node.ocs.openshift.io/storage=true:NoSchedule
 Also, if deploying dedicated nodes, the nodes should be labeled with `node-role.kubernetes.io/infra: ""` to designate the dedicated RHODF nodes as infra nodes. See [Infrastructure Nodes in OpenShift 4](https://access.redhat.com/solutions/5034771)
 
 ```console
-oc label node <node-name> node-role.kubernetes.io/infra=
+oc label node <node-name> node-role.kubernetes.io/infra=""
 ```
 
 ## kustomization.yaml
@@ -121,5 +127,62 @@ Use the Rook-Ceph toolbox to go behind the curtains and check on Ceph:
 oc patch OCSInitialization ocsinit -n openshift-storage --type json --patch  '[{ "op": "replace", "path": "/spec/enableCephTools", "value": true }]'
 
 oc rsh -n openshift-storage $(oc get pod -n openshift-storage -l app=rook-ceph-tools -o jsonpath='{.items[0].metadata.name}')
+```
+
+Kubernetes universal toleration:
+
+An empty key with `operator: Exists` matches all keys, values and effects which means this will tolerate everything.
+
+```yaml
+tolerations:
+  - operator: Exists
+```
+
+Use when need to schedule RHODF components on tainted dedicated infra nodes.
+
+Setup Chrony to ensure timesync source for nodes:
+
+```console
+chrony_base64=$(cat << EOF | base64 -w0
+server clock.corp.redhat.com iburst
+driftfile /var/lib/chrony/drift
+makestep 1.0 3
+rtcsync
+logdir /var/log/chrony
+EOF
+)
+
+for i in master worker; do
+cat << EOF > ./${i}-chrony-configuration.yml
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: ${i}
+  name: ${i}-chrony-configuration
+spec:
+  config:
+    ignition:
+      config: {}
+      security:
+        tls: {}
+      timeouts: {}
+      version: 2.2.0
+    networkd: {}
+    passwd: {}
+    storage:
+      files:
+      - contents:
+          source: data:text/plain;charset=utf-8;base64,${chrony_base64}
+          verification: {}
+        filesystem: root
+        mode: 420
+        path: /etc/chrony.conf
+  osImageURL: ""
+EOF
+done
+
+oc apply -f ./master-chrony-configuration.yml
+oc apply -f ./worker-chrony-configuration.yml
 ```
 
