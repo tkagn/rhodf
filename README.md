@@ -115,7 +115,7 @@ Edit this file with the respective size of each disk and the storage class that 
 
 ## Tips
 
-Using the Rook-Ceph toolbox to check on the Ceph backing storage:
+Use the Rook-Ceph toolbox to go behind the curtains and check on Ceph:
 
 ```console
 oc patch OCSInitialization ocsinit -n openshift-storage --type json --patch  '[{ "op": "replace", "path": "/spec/enableCephTools", "value": true }]'
