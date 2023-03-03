@@ -8,6 +8,7 @@
 - [operatorgroup-openshift-storage-operatorgroup.yaml](#operatorgroup-openshift-storage-operatorgroup.yaml)
 - [subscription-odf-operator.yaml](#subscription-odf-operator.yaml)
 - [storagecluster-ocs-storagecluster.yaml](#storagecluster-ocs-storagecluster.yaml)
+- [Usage](#Usage)
 - [Tips](#Tips)
 
 ## Red Hat OpenShift Data Foundation
@@ -133,6 +134,13 @@ oc apply -f storagecluster-ocs-storagecluster
 ```
 
 Edit this file with the respective size of each disk and the storage class that should be used to provision the OSD disks.
+
+## Usage
+
+```console
+git clone  https://github.com/tkagn/rhodf.git
+```
+:bangbang: :warning: Use with your own discretion :bangbang:
 
 ## Tips
 
