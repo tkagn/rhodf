@@ -94,6 +94,9 @@ oc apply -k .
 
 :warning: Not needed if you are applying the manifest one at a time. This file is helpful when managing a cluster using GitOps.
 
+Edit storagecluster-ocs-storagecluster.yaml to reflect the desired state (storage class and size). 
+Run the apply once then edit and uncomment storagecluster-ocs-storagecluster.yaml with the desired state. 
+
 ## namespace-openshift-storage.yaml
 
 Creates namespace `openshift-storage` namespace
@@ -197,3 +200,11 @@ oc apply -f ./master-chrony-configuration.yml
 oc apply -f ./worker-chrony-configuration.yml
 ```
 
+
+Multi-Attach errors:
+
+VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node. May have to delete:
+
+```console
+oc get volumeattachement
+```
