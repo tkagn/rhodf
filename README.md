@@ -71,6 +71,12 @@ oc label nodes <NodeName> cluster.ocs.openshift.io/openshift-storage=''
 
 >  Note: A minimum of 3 nodes are required.
 
+verify:
+
+```console
+oc get nodes -l cluster.ocs.openshift.io/openshift-storage=
+```
+
 Nodes can be dedicated to solely RHODF workloads by tainting them with `node.ocs.openshift.io/storage=true:NoSchedule`.
 
 ```console
