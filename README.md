@@ -30,6 +30,7 @@ Some Links:
 - What is supported in Red Hat OpenShift Data Foundation (previously known as OpenShift Container Storage) 4.X? - https://access.redhat.com/articles/5001441
 - Creating infrastructure machine sets https://docs.openshift.com/container-platform/4.12/machine_management/creating-infrastructure-machinesets.html#creating-an-infra-node_creating-infrastructure-machinesets
 - How to add toleration for the "non-ocs" taints to the OpenShift Data Foundation pods? - https://access.redhat.com/articles/6408481
+- ArgoCD Deploys ODF - Data Services Office Hour - https://www.youtube.com/watch?v=ydrq6NPh6Pg
 - Red Hat Bugzilla - https://bugzilla.redhat.com/
 
 - https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
