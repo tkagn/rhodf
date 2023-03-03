@@ -82,7 +82,8 @@ Also, if deploying dedicated nodes, the nodes should be labeled with `node-role.
 ```console
 oc label node <node-name> node-role.kubernetes.io/infra=""
 ```
-> :information_source: This mostly for internal mode. For external mode the nodes will outside the cluster.
+> :information_source: The node labels and node taints are for internal mode. For external mode the nodes will outside the cluster.
+
 ## kustomization.yaml
 
 Use to by deploy manifests together
