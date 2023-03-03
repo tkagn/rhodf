@@ -136,7 +136,7 @@ Edit this file with the desired RHODF version.
 Creates the storage cluster
 
 ```console
-oc apply -f storagecluster-ocs-storagecluster
+oc apply -f storagecluster-ocs-storagecluster.yaml
 ```
 
 Edit this file with the respective size of each disk and the storage class that should be used to provision the OSD disks.
