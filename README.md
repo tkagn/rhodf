@@ -7,7 +7,39 @@
 - [namespace-openshift-storage.yaml](#namespace-openshift-storage.yaml)
 - [operatorgroup-openshift-storage-operatorgroup.yaml](#operatorgroup-openshift-storage-operatorgroup.yaml)
 - [subscription-odf-operator.yaml](#subscription-odf-operator.yaml)
-- [storagecluster-ocs-storagecluster.yaml](storagecluster-ocs-storagecluster.yaml)
+- [storagecluster-ocs-storagecluster.yaml](#storagecluster-ocs-storagecluster.yaml)
+- [Tips](#Tips)
+
+## Red Hat OpenShift Data Foundation
+
+Red Hat OpenShift Data Foundation is software-defined storage that is optimized for container environments. It runs as an operator on OpenShift Container Platform to provide highly integrated and simplified persistent storage management for containers.
+
+Provides the following storage classes to Red Hat OpenShift:
+
+- ocs-storagecluster-ceph-rbd - Block storage
+- ocs-storagecluster-cephfs - Shared filesystem
+- ocs-storagecluster-ceph-rgw - S3 object storage.  Provides Object Bucket Claims (OBCs) using the RGW
+- openshift-storage.noobaa.io - S3 object storage. Provides Object Bucket Claims (OBCs) using Multi-Cloud Gateway (MCG)
+
+Some Links:
+
+- Product Documentation for Red Hat OpenShift Data Foundation - https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation
+- GitHub - https://github.com/red-hat-storage/odf-operator
+- Red Hat Openshift Data Foundation Customer Portal Articles - https://access.redhat.com/taxonomy/products/red-hat-openshift-data-foundation
+- Red Hat OpenShift Data Foundation RSS feed - https://access.redhat.com/term/Red%20Hat%20OpenShift%20Data%20Foundation/feed
+- What is supported in Red Hat OpenShift Data Foundation (previously known as OpenShift Container Storage) 4.X? - https://access.redhat.com/articles/5001441
+- Red hat Bugzilla - https://bugzilla.redhat.com/
+
+Tools:
+
+- Red Hat OpenShift Data Foundation Supportability and Interoperability Checker - https://access.redhat.com/labs/odfsi/
+- Red Hat Storage Recovery Calculator - https://access.redhat.com/labs/rhsrc/
+- Red Hat ODF Sizing Tool -https://access.redhat.com/labs/ocsst/
+
+Training:
+
+- DO370 - Enterprise Kubernetes Storage with Red Hat OpenShift Data Foundation - https://www.redhat.com/en/services/training/do370-enterprise-kubernetes-storage-with-red-hat-openshift-data-foundation 
+- EX370 Red Hat Certified Specialist in OpenShift Data Foundation exam - https://www.redhat.com/en/services/training/ex370-red-hat-certified-specialist-in-openshift-data-foundation-exam
 
 ## Prerequisites
 
@@ -78,3 +110,14 @@ oc apply -f storagecluster-ocs-storagecluster
 ```
 
 Edit this file with the respective size of each disk and the storage class that should be used to provision the OSD disks.
+
+## Tips
+
+Using the Rook-Ceph toolbox to check on the Ceph backing storage:
+
+```console
+oc patch OCSInitialization ocsinit -n openshift-storage --type json --patch  '[{ "op": "replace", "path": "/spec/enableCephTools", "value": true }]'
+
+oc rsh -n openshift-storage $(oc get pod -n openshift-storage -l app=rook-ceph-tools -o jsonpath='{.items[0].metadata.name}')
+```
+
