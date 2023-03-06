@@ -32,7 +32,7 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 2Ti             # Set to minimum size drive. Supported values for internal mode are .5Ti, 2Ti, 4Ti
+              storage: 2Ti             # Set to minimum size drive. Supported values for internal mode are 0.5TiB, 2TiB, 4TiB
           storageClassName: thin-csi     # Set to the correct storage class
           volumeMode: Block
         status: {}
