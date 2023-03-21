@@ -156,6 +156,10 @@ git clone  https://github.com/tkagn/rhodf.git
 
 ## Tips
 
+**How to safely reboot an OCS 4.x node**
+
+- Red Hat Customer Portal Article - [How to safely reboot an OCS 4.x node](https://access.redhat.com/solutions/6495631)
+
 **Rook Ceph Toolbox**  
 
 Use the Rook-Ceph toolbox to go behind the curtains and check on Ceph:
