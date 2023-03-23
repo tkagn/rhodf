@@ -236,3 +236,15 @@ VolumeAttachment captures the intent to attach or detach the specified volume to
 ```console
 oc get volumeattachments.storage.k8s.io
 ```
+
+**Matching PVs to RBDs**
+
+Determine the app to match the PV to RBD:
+
+```bash
+oc get pv -o 'custom-columns=NAME:.spec.claimRef.name,PVNAME:.metadata.name,STORAGECLASS:.spec.storageClassName,VOLUMEHANDLE:.spec.csi.volumeHandle'
+
+APPNAME=''
+CSIVOL=$(oc get pv $(oc get pv | grep ${APPNAME} | awk '{ print $1 }') -o jsonpath='{.spec.csi.volumeHandle}' | cut -d '-' -f 6- | awk '{print "csi-vol-"$1}')
+echo $CSIVOL
+```
