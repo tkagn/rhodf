@@ -248,3 +248,7 @@ APPNAME=''
 CSIVOL=$(oc get pv $(oc get pv | grep ${APPNAME} | awk '{ print $1 }') -o jsonpath='{.spec.csi.volumeHandle}' | cut -d '-' -f 6- | awk '{print "csi-vol-"$1}')
 echo $CSIVOL
 ```
+
+**Explanation of replica, count and worker scaling for Red Hat OpenShift Container Storage 4.x**
+
+- Explanation of replica, count and worker scaling for Red Hat OpenShift Container Storage 4.x - https://access.redhat.com/solutions/5567401
